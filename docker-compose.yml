@@ -1,0 +1,27 @@
+services:
+  simpsonsdb:
+    container_name: simpsonsdb
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: homer
+      POSTGRES_PASSWORD: duffman
+      POSTGRES_DB: simpsons
+    ports:
+      - 5432:5432/tcp
+    volumes:
+      - simpsonsdb-pgdata:/var/lib/postgresql/data
+  
+  simpsonsdb-ui:
+    container_name: simpsonsdb-ui
+    image: dpage/pgadmin4:6.17
+    environment:
+      PGADMIN_DEFAULT_EMAIL: homer@springfield.us
+      PGADMIN_DEFAULT_PASSWORD: doh
+    ports:
+      - 8080:80/tcp # connect on http://localhost:8080/
+    volumes:
+      - simpsonsdbui-pga:/var/lib/pgadmin
+
+volumes:
+  simpsonsdb-pgdata:
+  simpsonsdbui-pga:
