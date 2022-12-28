@@ -11,6 +11,7 @@ CREATE TABLE characters (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 
+-- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_characters (
     fandom_url varchar(256) PRIMARY KEY,
     known_as varchar(128) NOT NULL,
