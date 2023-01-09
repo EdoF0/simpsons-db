@@ -40,6 +40,22 @@ alias -> array
 job -> array
 voice -> array
 
+### Episodes table (TODO notes)
+
+primary key: episode absolute number
+
+merge season -> keep IMDB only because always available, warn when the two differ
+merge episode number relative -> keep IMDB only because not available in Fandom scraping data
+title -> 
+airdate -> 
+keep main character field
+
+### Main character table (TODO notes)
+
+primary key: episode absolute number and character known as
+
+alias -> character variant for that episode, if any
+
 ## Normalization
 
 In the database some strings are normalized.  
