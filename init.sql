@@ -85,3 +85,25 @@ CREATE TABLE scraping_imdb_episode (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_imdb_episode_episode_number_absolute ON scraping_imdb_episode (episode_number_absolute);
+
+CREATE TABLE scraping_episode (
+    episode_number_absolute smallint PRIMARY KEY,
+    season_fandom tinyint,
+    season_imdb tinyint,
+    episode_number_relative_fandom tinyint,
+    episode_number_relative_imdb tinyint,
+    title_fandom varchar(64) NOT NULL,
+    title_imdb varchar(64) NOT NULL,
+    main_characters varchar(64),
+    rating tinyint,
+    reviews_amount integer,
+    airdate_fandom date,
+    airdate_imdb date,
+    written_by varchar(64),
+    directed_by varchar(64),
+    production_code varchar(6) UNIQUE NOT NULL,
+    fandom_url varchar(256) UNIQUE,
+    image_url varchar(256) UNIQUE,
+    imdb_url varchar(256) UNIQUE,
+    creation_time timestamp NOT NULL DEFAULT NOW()
+);
