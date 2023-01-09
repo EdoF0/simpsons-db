@@ -9,6 +9,31 @@ CREATE TABLE character (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 
+-- Table for Simpsons episodes
+CREATE TABLE episode (
+    episode_number_absolute smallint PRIMARY KEY,
+    season tinyint NOT NULL,
+    episode_number_relative tinyint NOT NULL,
+    title varchar(64) NOT NULL,
+    rating tinyint,
+    reviews_amount integer,
+    airdate date,
+    written_by varchar(64),
+    directed_by varchar(64),
+    production_code varchar(6) UNIQUE NOT NULL,
+    fandom_url varchar(256) UNIQUE,
+    image_url varchar(256) UNIQUE,
+    imdb_url varchar(256) UNIQUE,
+    creation_time timestamp NOT NULL DEFAULT NOW()
+);
+
+-- Table linking every episode to their main characters
+CREATE TABLE main_character (
+    episode smallint PRIMARY KEY,
+    person varchar(64) PRIMARY KEY
+);
+
+
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
     fandom_url varchar(256) PRIMARY KEY,
