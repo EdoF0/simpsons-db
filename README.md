@@ -30,6 +30,16 @@ We chose the absolute number as episode identifier because it's always available
 Moreover, the episode title and air date are less reliable and could require a non-exact match.  
 For the same reasons, the episode absolute number is going to be the episodes primary key.
 
+### Characters table (TODO notes)
+
+primary key: normalized known as because it's not null for sure
+
+gender -> 3 boolean columns male female other
+condition -> 3 boolean columns alive deceased other
+alias -> array
+job -> array
+voice -> array
+
 ## Normalization
 
 In the database some strings are normalized.  
