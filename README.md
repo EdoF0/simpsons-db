@@ -12,7 +12,7 @@ Raw data sources and tables:
 
 - [Fandom characters scraping](https://github.com/EdoF0/simpsons-characters-scraper): `scraping_fandom_character`
 - [Fandom episodes](https://github.com/pcavana/Data-Management): `scraping_fandom_episode`
-- [IMDB episodes](https://github.com/jultsmbl/Simpsons_Scraper): `scraping_imdb_episode`
+- [IMDB episodes](https://github.com/jultsmbl/IMDd_Scraper): `scraping_imdb_episode`
 
 The data import for every table is actually a manual csv import through pgAdmin GUI.
 

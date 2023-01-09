@@ -72,7 +72,7 @@ CREATE TABLE scraping_fandom_episode (
 );
 CREATE INDEX scraping_fandom_episode_episode_number_absolute ON scraping_fandom_episode (episode_number_absolute);
 
--- scraper: https://github.com/jultsmbl/Simpsons_Scraper
+-- scraper: https://github.com/jultsmbl/IMDd_Scraper
 CREATE TABLE scraping_imdb_episode (
     imdb_url varchar(256) PRIMARY KEY,
     season tinyint,
