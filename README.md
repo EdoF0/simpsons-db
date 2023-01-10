@@ -61,5 +61,6 @@ alias -> character variant for that episode, if any
 In the database some strings are normalized.  
 This is what normalization means in this project:
 
-- All string to lowercase
+- [Unicode Normalization Form](https://www.unicode.org/reports/tr15/tr15-53.html) NFKD
+- To lowercase
 - Trim initial and final space separator characters
