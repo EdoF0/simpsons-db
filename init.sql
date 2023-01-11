@@ -59,14 +59,14 @@ CREATE TABLE scraping_fandom_character (
 -- scraper: https://github.com/pcavana/Data-Management
 CREATE TABLE scraping_fandom_episode (
     fandom_url varchar(256) PRIMARY KEY,
-    title varchar(64) NOT NULL,
+    title varchar(128) NOT NULL,
     image_url varchar(256),
     season smallint,
     episode_number_absolute smallint,
-    production_code varchar(6) UNIQUE NOT NULL,
+    production_code varchar(6),
     airdate date,
-    main_characters varchar(64),
-    written_by varchar(64),
+    main_characters varchar(384),
+    written_by varchar(256),
     directed_by varchar(64),
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
