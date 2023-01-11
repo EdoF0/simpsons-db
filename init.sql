@@ -12,10 +12,10 @@ CREATE TABLE character (
 -- Table for Simpsons episodes
 CREATE TABLE episode (
     episode_number_absolute smallint PRIMARY KEY,
-    season tinyint NOT NULL,
-    episode_number_relative tinyint NOT NULL,
+    season smallint NOT NULL,
+    episode_number_relative smallint NOT NULL,
     title varchar(64) NOT NULL,
-    rating tinyint,
+    rating smallint,
     reviews_amount integer,
     airdate date,
     written_by varchar(64),
@@ -61,7 +61,7 @@ CREATE TABLE scraping_fandom_episode (
     fandom_url varchar(256) PRIMARY KEY,
     title varchar(64) NOT NULL,
     image_url varchar(256),
-    season tinyint,
+    season smallint,
     episode_number_absolute smallint,
     production_code varchar(6) UNIQUE NOT NULL,
     airdate date,
@@ -75,12 +75,12 @@ CREATE INDEX scraping_fandom_episode_episode_number_absolute ON scraping_fandom_
 -- scraper: https://github.com/jultsmbl/IMDd_Scraper
 CREATE TABLE scraping_imdb_episode (
     imdb_url varchar(256) PRIMARY KEY,
-    season tinyint,
-    episode_number_relative tinyint,
+    season smallint,
+    episode_number_relative smallint,
     episode_number_absolute smallint,
     title varchar(64),
     airdate date,
-    rating tinyint, -- TODO check between 1 and 100
+    rating smallint, -- TODO check between 1 and 100
     reviews_amount integer,
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
@@ -88,14 +88,14 @@ CREATE INDEX scraping_imdb_episode_episode_number_absolute ON scraping_imdb_epis
 
 CREATE TABLE scraping_episode (
     episode_number_absolute smallint PRIMARY KEY,
-    season_fandom tinyint,
-    season_imdb tinyint,
-    episode_number_relative_fandom tinyint,
-    episode_number_relative_imdb tinyint,
+    season_fandom smallint,
+    season_imdb smallint,
+    episode_number_relative_fandom smallint,
+    episode_number_relative_imdb smallint,
     title_fandom varchar(64) NOT NULL,
     title_imdb varchar(64) NOT NULL,
     main_characters varchar(64),
-    rating tinyint,
+    rating smallint,
     reviews_amount integer,
     airdate_fandom date,
     airdate_imdb date,
