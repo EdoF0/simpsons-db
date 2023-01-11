@@ -78,7 +78,7 @@ CREATE TABLE scraping_imdb_episode (
     season smallint,
     episode_number_relative smallint,
     episode_number_absolute smallint,
-    title varchar(64),
+    title varchar(128),
     airdate date,
     rating smallint, -- TODO check between 1 and 100
     reviews_amount integer,
