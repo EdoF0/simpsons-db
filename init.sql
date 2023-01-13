@@ -12,11 +12,12 @@ CREATE TABLE character (
 -- Table for Simpsons episodes
 CREATE TABLE episode (
     episode_number_absolute smallint PRIMARY KEY,
-    season smallint NOT NULL,
     episode_number_relative smallint NOT NULL,
-    title varchar(64) NOT NULL,
+    season smallint NOT NULL,
+    title varchar(128) NOT NULL,
     rating smallint,
     reviews_amount integer,
+    main_characters varchar(384),
     airdate date,
     written_by varchar(64),
     directed_by varchar(64),
@@ -33,6 +34,16 @@ CREATE TABLE main_character (
     person varchar(64) PRIMARY KEY
 );
 
+/*CREATE TABLE main_character AS (
+   SELECT
+          episode_number_absolute,
+          season,
+          episode_title,
+          main_characters,
+          rating,
+          reviews_amount
+   FROM episode
+)*/
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
@@ -67,7 +78,7 @@ CREATE TABLE scraping_fandom_episode (
     airdate date,
     main_characters varchar(384),
     written_by varchar(256),
-    directed_by varchar(64),
+    directed_by varchar(256),
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_fandom_episode_episode_number_absolute ON scraping_fandom_episode (episode_number_absolute);
