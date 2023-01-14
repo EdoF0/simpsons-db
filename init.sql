@@ -21,17 +21,13 @@ CREATE TABLE alias (
 -- Table for Simpsons episodes
 CREATE TABLE episode (
     episode_number_absolute smallint PRIMARY KEY,
-    season smallint NOT NULL,
     episode_number_relative smallint NOT NULL,
-    title varchar(64) NOT NULL,
+    season smallint NOT NULL,
+    title varchar(128) NOT NULL,
     rating smallint,
     reviews_amount integer,
-    airdate date,
-    written_by varchar(64),
-    directed_by varchar(64),
-    production_code varchar(6) UNIQUE NOT NULL,
+    main_characters varchar(384),
     fandom_url varchar(256) UNIQUE,
-    image_url varchar(256) UNIQUE,
     imdb_url varchar(256) UNIQUE,
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
@@ -39,9 +35,9 @@ CREATE TABLE episode (
 -- Table linking every episode to their main characters
 CREATE TABLE main_character (
     episode smallint PRIMARY KEY,
-    person varchar(64) PRIMARY KEY
+    alias varchar(128) PRIMARY KEY,
+    CONSTRAINT fk_episode FOREIGN KEY(episode) REFERENCES episode(episode_number_absolute)
 );
-
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
@@ -76,7 +72,7 @@ CREATE TABLE scraping_fandom_episode (
     airdate date,
     main_characters varchar(384),
     written_by varchar(256),
-    directed_by varchar(64),
+    directed_by varchar(256),
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_fandom_episode_episode_number_absolute ON scraping_fandom_episode (episode_number_absolute);
