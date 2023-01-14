@@ -1,5 +1,8 @@
--- Table for Simpsons characters
--- Different characters representing the same person are merged here, and considered aliases in the alias table
+--
+-- Clean data
+--
+
+-- Table for Simpsons characters (non canonical version of the same character should be merged with the original one)
 CREATE TABLE character (
     normalized_name varchar(128) PRIMARY KEY, -- Normalized known_as property
     known_as varchar(128) NOT NULL, -- Original name not normalized
@@ -9,6 +12,7 @@ CREATE TABLE character (
     CONSTRAINT fk_scraping_fandom FOREIGN KEY(fandom_url) REFERENCES scraping_fandom_character(fandom_url)
 );
 
+-- Table for all character aliases and in general the different ways that are called
 CREATE TABLE alias (
     normalized_alias varchar(128) PRIMARY KEY, -- Normalized alias property
     alias varchar(128) NOT NULL, -- How the character is called
@@ -18,8 +22,7 @@ CREATE TABLE alias (
     CONSTRAINT fk_character FOREIGN KEY("character") REFERENCES "character"(normalized_name)
 );
 
-
--- Table for Simpsons episodes
+-- Table for Simpsons episodes (not future episodes)
 CREATE TABLE episode (
     episode_number_absolute smallint PRIMARY KEY,
     episode_number_relative smallint NOT NULL,
@@ -33,7 +36,7 @@ CREATE TABLE episode (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 
--- Table linking every episode to their main characters
+-- Table linking every episode to their main characters (through the alias table)
 CREATE TABLE main_character (
     episode smallint,
     alias varchar(128),
@@ -42,6 +45,39 @@ CREATE TABLE main_character (
     CONSTRAINT fk_episode FOREIGN KEY(episode) REFERENCES episode(episode_number_absolute),
     CONSTRAINT fk_alias FOREIGN KEY(alias) REFERENCES alias(normalized_alias)
 );
+
+--
+-- Raw data by entity
+--
+-- In these views raw data of different sources of the same entity are joined to be put side to side
+--
+
+CREATE VIEW raw_character AS SELECT
+    known_as,
+    full_name,
+    image_url,
+    age,
+    species,
+    gender,
+    condition,
+    fictional,
+    alias,
+    hair_color,
+    color,
+    birth_country,
+    job,
+    first_appearance,
+    first_mentioned,
+    voice,
+    fandom_url,
+    creation_time
+FROM scraping_fandom_character;
+
+--
+-- Raw data by source
+--
+-- In these tables raw data is imported
+--
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
@@ -94,46 +130,3 @@ CREATE TABLE scraping_imdb_episode (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_imdb_episode_episode_number_absolute ON scraping_imdb_episode (episode_number_absolute);
-
-CREATE VIEW scraping_character AS SELECT
-    known_as,
-    full_name,
-    image_url,
-    age,
-    species,
-    gender,
-    condition,
-    fictional,
-    alias,
-    hair_color,
-    color,
-    birth_country,
-    job,
-    first_appearance,
-    first_mentioned,
-    voice,
-    fandom_url,
-    creation_time
-FROM scraping_fandom_character;
-
-CREATE TABLE scraping_episode (
-    episode_number_absolute smallint PRIMARY KEY,
-    season_fandom smallint,
-    season_imdb smallint,
-    episode_number_relative_fandom smallint,
-    episode_number_relative_imdb smallint,
-    title_fandom varchar(64) NOT NULL,
-    title_imdb varchar(64) NOT NULL,
-    main_characters varchar(64),
-    rating smallint,
-    reviews_amount integer,
-    airdate_fandom date,
-    airdate_imdb date,
-    written_by varchar(64),
-    directed_by varchar(64),
-    production_code varchar(6) UNIQUE NOT NULL,
-    fandom_url varchar(256) UNIQUE,
-    image_url varchar(256) UNIQUE,
-    imdb_url varchar(256) UNIQUE,
-    creation_time timestamp NOT NULL DEFAULT NOW()
-);
