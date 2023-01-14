@@ -1,7 +1,7 @@
 -- Table for Simpsons characters
 -- Different characters representing the same person are merged here, and considered aliases in the alias table
 CREATE TABLE character (
-    normalized_name varchar(128) PRIMARY KEY, -- To see what is the normalization process, go to README.md
+    normalized_name varchar(128) PRIMARY KEY, -- Normalized known_as property
     known_as varchar(128) NOT NULL, -- Original name not normalized
     fandom_url varchar(256) UNIQUE, -- Foreign key to raw data
     creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
@@ -10,7 +10,8 @@ CREATE TABLE character (
 );
 
 CREATE TABLE alias (
-    alias varchar(128) PRIMARY KEY, -- How the character is called
+    normalized_alias varchar(128) PRIMARY KEY, -- Normalized alias property
+    alias varchar(128) NOT NULL, -- How the character is called
     "character" varchar(128) NOT NULL, -- The character (foreign key)
     creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
     -- Constraints
