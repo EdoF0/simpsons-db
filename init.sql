@@ -90,7 +90,7 @@ FROM scraping_fandom_character;
 -- Table for Simpsons characters (non canonical version of the same character should be merged with the original one)
 CREATE TABLE character (
     normalized_name varchar(128) PRIMARY KEY, -- Normalized known_as property
-    known_as varchar(128) NOT NULL, -- Original name not normalized
+    known_as varchar(128) UNIQUE NOT NULL, -- Original name not normalized
     fandom_url varchar(256) UNIQUE, -- Foreign key to raw data
     creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
     -- Constraints
@@ -100,7 +100,7 @@ CREATE TABLE character (
 -- Table for all character aliases and in general the different ways that are called
 CREATE TABLE alias (
     normalized_alias varchar(128) PRIMARY KEY, -- Normalized alias property
-    alias varchar(128) NOT NULL, -- How the character is called
+    alias varchar(128) UNIQUE NOT NULL, -- How the character is called
     "character" varchar(128) NOT NULL, -- The character (foreign key)
     creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
     -- Constraints
