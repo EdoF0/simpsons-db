@@ -24,21 +24,10 @@ CREATE TABLE episode (
 );
 
 -- Table linking every episode to their main characters
-/*CREATE TABLE main_character (
+CREATE TABLE main_character (
     episode smallint PRIMARY KEY,
     person varchar(64) PRIMARY KEY
-);*/
-
-CREATE TABLE main_character AS (
-   SELECT
-        episode_number_absolute,
-        season,
-        episode_title,
-        main_characters,
-        rating,
-        reviews_amount
-   FROM episode
-)
+);
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
