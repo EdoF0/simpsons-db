@@ -1,13 +1,19 @@
 -- Table for Simpsons characters
+-- Different characters representing the same person are merged here, and considered aliases in the alias table
 CREATE TABLE character (
-    -- Normalized name to facilitate name comparisons.
-    -- To see what is the normalization process, go to README.md
-    normalized_name varchar(64) PRIMARY KEY,
-    -- Original name not normalized
-    full_name varchar(64) NOT NULL,
-    -- Creation time of the data row
-    creation_time timestamp NOT NULL DEFAULT NOW()
+    normalized_name varchar(128) PRIMARY KEY, -- To see what is the normalization process, go to README.md
+    known_as varchar(128) NOT NULL, -- Original name not normalized
+    creation_time timestamp NOT NULL DEFAULT NOW() -- Creation time of the data row
 );
+
+CREATE TABLE alias (
+    alias varchar(128) PRIMARY KEY, -- How the character is called
+    "character" varchar(128) NOT NULL, -- The character (foreign key)
+    creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
+    -- Constraints
+    CONSTRAINT fk_character FOREIGN KEY("character") REFERENCES "character"(normalized_name)
+);
+
 
 -- Table for Simpsons episodes
 CREATE TABLE episode (
