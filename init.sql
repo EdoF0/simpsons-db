@@ -18,32 +18,27 @@ CREATE TABLE episode (
     rating smallint,
     reviews_amount integer,
     main_characters varchar(384),
-    airdate date,
-    written_by varchar(64),
-    directed_by varchar(64),
-    production_code varchar(6) UNIQUE NOT NULL,
     fandom_url varchar(256) UNIQUE,
-    image_url varchar(256) UNIQUE,
     imdb_url varchar(256) UNIQUE,
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 
 -- Table linking every episode to their main characters
-CREATE TABLE main_character (
+/*CREATE TABLE main_character (
     episode smallint PRIMARY KEY,
     person varchar(64) PRIMARY KEY
-);
+);*/
 
-/*CREATE TABLE main_character AS (
+CREATE TABLE main_character AS (
    SELECT
-          episode_number_absolute,
-          season,
-          episode_title,
-          main_characters,
-          rating,
-          reviews_amount
+        episode_number_absolute,
+        season,
+        episode_title,
+        main_characters,
+        rating,
+        reviews_amount
    FROM episode
-)*/
+)
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
 CREATE TABLE scraping_fandom_character (
