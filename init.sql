@@ -26,7 +26,8 @@ CREATE TABLE episode (
 -- Table linking every episode to their main characters
 CREATE TABLE main_character (
     episode smallint PRIMARY KEY,
-    alias varchar(128) PRIMARY KEY
+    alias varchar(128) PRIMARY KEY,
+    CONSTRAINT fk_episode FOREIGN KEY(episode) REFERENCES episode(episode_number_absolute)
 );
 
 -- scraper: https://github.com/EdoF0/simpsons-characters-scraper
