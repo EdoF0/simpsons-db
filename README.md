@@ -12,7 +12,7 @@ Raw data sources and tables:
 
 - [Fandom characters scraping](https://github.com/EdoF0/simpsons-characters-scraper): `scraping_fandom_character`
 - [Fandom episodes](https://github.com/pcavana/Data-Management): `scraping_fandom_episode`
-- [IMDB episodes](https://github.com/jultsmbl/IMDd_Scraper): `scraping_imdb_episode`
+- [IMDb episodes](https://github.com/jultsmbl/IMDd_Scraper): `scraping_imdb_episode`
 
 The data import for every table is actually a manual csv import through pgAdmin GUI.
 
@@ -21,11 +21,11 @@ Raw data checking and cleaning is supposed to happen inside the scraper.
 ### Episode merging
 
 To merge the two episodes tables, we create a view. The view will be generated from a join based on the episode absolute number.  
-The view should keep all the data from the two sources (Fandom and IMDB).
+The view should keep all the data from the two sources (Fandom and IMDb).
 
 Why joining on episode absolute number?  
 Some Fandom episodes do not have a season number, so we cannot make the couple season - relative episode number the join attribute.
-All IMDB episodes do not have the production code, so we cannot use it as primary key.
+All IMDb episodes do not have the production code, so we cannot use it as primary key.
 We chose the absolute number as episode identifier because it's always available on Fandom and can be easily generated form season and relative episode number.
 Moreover, the episode title and air date are less reliable and could require a non-exact match.  
 For the same reasons, the episode absolute number is going to be the episodes primary key.
@@ -44,8 +44,8 @@ voice -> array
 
 primary key: episode absolute number
 
-merge season -> keep IMDB only because always available, warn when the two differ
-merge episode number relative -> keep IMDB only because not available in Fandom scraping data
+merge season -> keep IMDb only because always available, warn when the two differ
+merge episode number relative -> keep IMDb only because not available in Fandom scraping data
 title -> 
 airdate -> 
 keep main character field
