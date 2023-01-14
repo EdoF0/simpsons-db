@@ -92,6 +92,27 @@ CREATE TABLE scraping_imdb_episode (
 );
 CREATE INDEX scraping_imdb_episode_episode_number_absolute ON scraping_imdb_episode (episode_number_absolute);
 
+CREATE VIEW scraping_character AS SELECT
+    known_as,
+    full_name,
+    image_url,
+    age,
+    species,
+    gender,
+    condition,
+    fictional,
+    alias,
+    hair_color,
+    color,
+    birth_country,
+    job,
+    first_appearance,
+    first_mentioned,
+    voice,
+    fandom_url,
+    creation_time
+FROM scraping_fandom_character;
+
 CREATE TABLE scraping_episode (
     episode_number_absolute smallint PRIMARY KEY,
     season_fandom smallint,
