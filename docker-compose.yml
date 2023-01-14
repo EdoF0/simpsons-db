@@ -13,7 +13,7 @@ services:
   
   simpsonsdb-ui:
     container_name: simpsonsdb-ui
-    image: dpage/pgadmin4:6.17
+    image: dpage/pgadmin4:6.18
     environment:
       PGADMIN_DEFAULT_EMAIL: homer@springfield.us
       PGADMIN_DEFAULT_PASSWORD: doh
