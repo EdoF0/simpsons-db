@@ -3,7 +3,10 @@
 CREATE TABLE character (
     normalized_name varchar(128) PRIMARY KEY, -- To see what is the normalization process, go to README.md
     known_as varchar(128) NOT NULL, -- Original name not normalized
-    creation_time timestamp NOT NULL DEFAULT NOW() -- Creation time of the data row
+    fandom_url varchar(256) UNIQUE, -- Foreign key to raw data
+    creation_time timestamp NOT NULL DEFAULT NOW(), -- Creation time of the data row
+    -- Constraints
+    CONSTRAINT fk_scraping_fandom FOREIGN KEY(fandom_url) REFERENCES scraping_fandom_character(fandom_url)
 );
 
 CREATE TABLE alias (
