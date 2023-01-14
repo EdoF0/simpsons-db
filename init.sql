@@ -35,10 +35,11 @@ CREATE TABLE episode (
 
 -- Table linking every episode to their main characters
 CREATE TABLE main_character (
-    episode smallint PRIMARY KEY,
-    alias varchar(128) PRIMARY KEY,
+    episode smallint,
+    alias varchar(128),
     -- Constraints
-    CONSTRAINT fk_episode FOREIGN KEY(episode) REFERENCES episode(episode_number_absolute)
+    PRIMARY KEY (episode, alias),
+    CONSTRAINT fk_episode FOREIGN KEY(episode) REFERENCES episode(episode_number_absolute),
     CONSTRAINT fk_alias FOREIGN KEY(alias) REFERENCES alias(normalized_alias)
 );
 
