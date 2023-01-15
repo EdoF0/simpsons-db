@@ -4,6 +4,8 @@ Database to store data about Simpsons characters and episodes.
 
 ![simpsons](https://user-images.githubusercontent.com/92382378/204278976-e3f2294b-27af-4e99-8766-64f8f10381d9.jpg)
 
+The objective of this project is to individuate, among all characters, the ones that makes the episode more appreciated and less appreciated, in other words, the characters that can make an episode good or bad.
+
 ## Path to good data
 
 ### Raw data
@@ -15,6 +17,8 @@ Raw data sources and tables:
 - [IMDb episodes](https://github.com/jultsmbl/IMDd_Scraper): `scraping_imdb_episode`
 
 Raw data checking and cleaning is supposed to happen inside the scraper.
+
+Raw data import statements are inside the file `import.sql`.
 
 ### Episode merging
 
