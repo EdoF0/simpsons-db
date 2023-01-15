@@ -14,8 +14,6 @@ Raw data sources and tables:
 - [Fandom episodes](https://github.com/pcavana/Data-Management): `scraping_fandom_episode`
 - [IMDb episodes](https://github.com/jultsmbl/IMDd_Scraper): `scraping_imdb_episode`
 
-The data import for every table is actually a manual csv import through pgAdmin GUI.
-
 Raw data checking and cleaning is supposed to happen inside the scraper.
 
 ### Episode merging
