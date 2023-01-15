@@ -82,3 +82,16 @@ This is what normalization means in this project:
   - `' '` (Medium Mathematical Space)
   - `'　'` (Ideographic Space)
   - `'⠀'` (Braille Blank)
+- Remove the following characters:
+  - brackets: `'()[]{}<>'`
+  - apostrophes: `'’'"'`
+  - punctuation: `',.;:?!'`
+  - slashes: `'/\'`
+  - common math: `'+-*'`
+  - currency: `'$£€'`
+  - other: `'|_@&~#%'`
+
+In PosgreSQL this can be done with the following code
+```sql
+regexp_replace(trim('               　⠀' FROM lower(normalize(string_here, NFKD))), '[()\[\]{}<>’''",.;:?!\/\\+\-*$£€|_@&~#%]', '', 'g')
+```
