@@ -83,6 +83,29 @@ CREATE VIEW raw_character AS SELECT
     creation_time
 FROM scraping_fandom_character;
 
+CREATE VIEW raw_episode AS SELECT
+    im.episode_number_absolute,
+    im.season AS imdb_season,
+    fd.season AS fandom_season,
+    im.episode_number_relative,
+    fd.title AS fandom_title,
+    im.title AS imdb_title,
+    fd.image_url,
+    fd.production_code,
+    fd.airdate AS fandom_airdate,
+    im.airdate AS imdb_airdate,
+    fd.main_characters,
+    fd.written_by,
+    fd.directed_by,
+    im.rating,
+    im.reviews_amount,
+    im.imdb_url,
+    fd.fandom_url,
+    im.creation_time AS imdb_creation_time,
+    fd.creation_time AS fandom_creation_time
+FROM scraping_fandom_episode as fd
+LEFT JOIN scraping_imdb_episode as im ON fd.episode_number_absolute=im.episode_number_absolute;
+
 --
 -- Clean data
 --
