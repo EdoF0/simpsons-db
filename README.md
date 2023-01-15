@@ -63,4 +63,22 @@ This is what normalization means in this project:
 
 - [Unicode Normalization Form](https://www.unicode.org/reports/tr15/tr15-53.html) NFKD
 - To lowercase
-- Trim initial and final space separator characters
+- Trim initial and final space separator characters:
+  - `''` (space)
+  - `' '` (No-Break Space)
+  - `' '` (Ogham Space Mark)
+  - `' '` (En Quad)
+  - `' '` (Em Quad)
+  - `' '` (En Space)
+  - `' '` (Em Space)
+  - `' '` (Three-Per-Em Space)
+  - `' '` (Four-Per-Em Space)
+  - `' '` (Six-Per-Em Space)
+  - `' '` (Figure Space)
+  - `' '` (Punctuation Space)
+  - `' '` (Thin Space)
+  - `' '` (Hair Space)
+  - `' '` (Narrow No-Break Space)
+  - `' '` (Medium Mathematical Space)
+  - `'　'` (Ideographic Space)
+  - `'⠀'` (Braille Blank)
