@@ -32,6 +32,38 @@ SELECT
 FROM raw_character
 ORDER BY data_score DESC;
 
+-- future merged characters view
+WITH ready_raw_character AS (
+    SELECT
+        known_as,
+        fandom_url,
+        LENGTH(concat(full_name, image_url, gender, status, alias, hair_color, birth_country, job, first_appearance, first_mentioned, voice)) AS data_score
+    FROM raw_character
+    ORDER BY data_score DESC
+)
+SELECT
+    (
+        SELECT
+            subc.known_as
+        FROM ready_raw_character AS subc
+        WHERE similarity(c.known_as, subc.known_as) > 0.6
+        ORDER BY subc.data_score DESC
+        LIMIT 1
+    ) AS "group",
+    (
+        SELECT
+            subc.known_as
+        FROM ready_raw_character AS subc
+        WHERE similarity(c.known_as, subc.known_as) > 0.6
+        ORDER BY subc.data_score DESC
+        LIMIT 1
+    ) = c.known_as AS representative,
+    c.known_as,
+    c.fandom_url,
+    c.data_score
+FROM ready_raw_character AS c
+ORDER BY "group" ASC, representative DESC;
+
 --
 -- episode cleaning
 --
