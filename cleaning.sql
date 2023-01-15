@@ -31,3 +31,30 @@ SELECT
     LENGTH(concat(full_name, image_url, gender, status, alias, hair_color, birth_country, job, first_appearance, first_mentioned, voice)) AS data_score
 FROM raw_character
 ORDER BY data_score DESC;
+
+--
+-- episode cleaning
+--
+-- TODO check all
+INSERT INTO episode (
+    episode_number_absolute,
+    episode_number_relative,
+    season,
+    title,
+    rating,
+    reviews_amount,
+    main_characters,
+    fandom_url,
+    imdb_url
+)
+SELECT
+    episode_number_absolute,
+    episode_number_relative,
+    imdb_season,
+    imdb_title, -- TODO title check
+    rating,
+    reviews_amount,
+    main_characters,
+    fandom_url,
+    imdb_url
+FROM raw_character;
