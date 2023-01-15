@@ -25,29 +25,6 @@ CREATE TABLE scraping_fandom_character (
     voice varchar(768),
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
--- import statement
-COPY scraping_fandom_character (
-    fandom_url,
-    known_as,
-    full_name,
-    image_url,
-    age,
-    species,
-    gender,
-    status,
-    fictional,
-    alias,
-    hair_color,
-    color,
-    birth_country,
-    job,
-    first_appearance,
-    first_mentioned,
-    voice
-)
-FROM
-    '<STORAGE_DIR>/characters-14.01.2023-postgres.csv'
-    DELIMITER ';' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '\\';
 
 -- scraper: https://github.com/pcavana/Data-Management
 CREATE TABLE scraping_fandom_episode (
@@ -64,22 +41,6 @@ CREATE TABLE scraping_fandom_episode (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_fandom_episode_episode_number_absolute ON scraping_fandom_episode (episode_number_absolute);
--- import statement
-COPY scraping_fandom_episode (
-    fandom_url,
-    title,
-    image_url,
-    season,
-    episode_number_absolute,
-    production_code,
-    airdate,
-    main_characters,
-    written_by,
-    directed_by
-)
-FROM
-    '<STORAGE_DIR>/episodes-11.01.2023-postgres.csv'
-    DELIMITER ';' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '\\';
 
 -- scraper: https://github.com/jultsmbl/IMDd_Scraper
 CREATE TABLE scraping_imdb_episode (
@@ -94,20 +55,6 @@ CREATE TABLE scraping_imdb_episode (
     creation_time timestamp NOT NULL DEFAULT NOW()
 );
 CREATE INDEX scraping_imdb_episode_episode_number_absolute ON scraping_imdb_episode (episode_number_absolute);
--- import statement
-COPY scraping_imdb_episode (
-    imdb_url,
-    season,
-    episode_number_relative,
-    episode_number_absolute,
-    title,
-    airdate,
-    rating,
-    reviews_amount
-)
-FROM
-    '<STORAGE_DIR>/scraping_imdb_episode.csv'
-    DELIMITER ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"';
 
 --
 -- Raw data by entity
