@@ -81,6 +81,13 @@ FROM
     ) AS nr
     INNER JOIN unmerged_character AS uc ON nr."group" = uc.known_as;
 
+-- make the number of representants always 1
+-- (similar to previous)
+UPDATE unmerged_character
+SET "group" = group_new
+FROM not_represented AS nr
+WHERE "group" = group_old;
+
 -- character insert data final statement
 INSERT INTO "character" (
     normalized_name,
