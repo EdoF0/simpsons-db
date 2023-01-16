@@ -50,12 +50,12 @@ CREATE VIEW unmerged_character AS SELECT
     ) AS "group",
     (
         SELECT
-            subc.known_as
+            subc.fandom_url
         FROM ready_raw_character AS subc
         WHERE similarity(c.known_as, subc.known_as) > 0.6
         ORDER BY subc.data_score DESC
         LIMIT 1
-    ) = c.known_as AS representative,
+    ) = c.fandom_url AS representative,
     c.known_as,
     c.fandom_url,
     c.data_score
@@ -69,7 +69,7 @@ ORDER BY "group" ASC, representative DESC;
 DELETE FROM scraping_fandom_episode WHERE airdate > NOW();
 DELETE FROM scraping_imdb_episode WHERE airdate > NOW();
 
--- insert data final statement
+-- episode insert data final statement
 INSERT INTO episode (
     episode_number_absolute,
     episode_number_relative,
