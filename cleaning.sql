@@ -114,6 +114,25 @@ SELECT
     normalized_name
 FROM "character";
 
+-- alias insert data 2nd statement
+-- add non-representatives
+INSERT INTO "alias" (
+    normalized_alias,
+    "alias",
+    "character"
+)
+SELECT
+    norm(known_as),
+    known_as,
+    norm("group")
+FROM unmerged_character
+WHERE
+    representative = FALSE AND
+    NOT EXISTS (
+        SELECT normalized_alias FROM "alias"
+        WHERE normalized_alias = norm(known_as)
+    );
+
 --
 -- episode cleaning
 --
