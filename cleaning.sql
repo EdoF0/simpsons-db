@@ -66,6 +66,10 @@ ORDER BY "group" ASC, representative DESC;
 -- episode cleaning
 --
 -- TODO check all
+
+DELETE FROM scraping_fandom_episode WHERE airdate > NOW();
+DELETE FROM scraping_imdb_episode WHERE airdate > NOW();
+
 INSERT INTO episode (
     episode_number_absolute,
     episode_number_relative,
