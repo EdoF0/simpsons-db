@@ -1,6 +1,12 @@
 -- Extension containg the similarity() function
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
+-- String normalization function
+CREATE FUNCTION norm(t text) RETURNS text AS $$
+    SELECT
+        regexp_replace(trim('               　⠀' FROM lower(normalize(t, NFKD))), '[()\[\]{}<>’''",.;:?!\/\\+\-*$£€|_@&~#%]', '', 'g');
+$$ LANGUAGE SQL;
+
 --
 -- character cleaning
 --
