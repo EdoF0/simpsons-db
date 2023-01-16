@@ -101,6 +101,19 @@ SELECT
 FROM unmerged_character
 WHERE representative = TRUE;
 
+-- alias insert data 1st statement
+-- add representatives
+INSERT INTO "alias" (
+    normalized_alias,
+    "alias",
+    "character"
+)
+SELECT
+    normalized_name,
+    known_as,
+    normalized_name
+FROM "character";
+
 --
 -- episode cleaning
 --
