@@ -38,8 +38,9 @@ CREATE VIEW ready_raw_character AS SELECT
 FROM raw_character
 ORDER BY data_score DESC;
 
--- future merged characters view
-CREATE VIEW unmerged_character AS SELECT
+-- future merged characters temporary table
+-- note: groups can have 0 or 1 representant
+CREATE TABLE unmerged_character AS SELECT
     (
         SELECT
             subc.known_as
