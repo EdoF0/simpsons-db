@@ -62,6 +62,19 @@ CREATE VIEW unmerged_character AS SELECT
 FROM ready_raw_character AS c
 ORDER BY "group" ASC, representative DESC;
 
+-- character insert data final statement
+INSERT INTO "character" (
+    normalized_name,
+    known_as,
+    fandom_url
+)
+SELECT
+    norm(known_as),
+    known_as,
+    fandom_url
+FROM unmerged_character
+WHERE representative = TRUE;
+
 --
 -- episode cleaning
 --
