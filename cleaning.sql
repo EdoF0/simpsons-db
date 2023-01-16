@@ -128,10 +128,41 @@ SELECT
 FROM unmerged_character
 WHERE
     representative = FALSE AND
+    -- discard existent aliases
     NOT EXISTS (
         SELECT normalized_alias FROM "alias"
         WHERE normalized_alias = norm(known_as)
     );
+
+-- alias insert data 3rd statement
+-- add aliases from alias property
+WITH character_alias AS (
+    SELECT
+        known_as,
+        norm(one_alias) AS normalized_alias,
+        one_alias AS "alias",
+        fandom_url
+    FROM
+        raw_character,
+        regexp_split_to_table(alias, ',') AS one_alias
+    WHERE LENGTH(one_alias) < 128 -- same as max alias length
+)
+INSERT INTO "alias" (
+    normalized_alias,
+    "alias",
+    "character"
+)
+SELECT DISTINCT ON (ca.normalized_alias) -- discard same alias for different character
+    ca.normalized_alias,
+    ca.alias,
+    norm(uc."group")
+FROM character_alias AS ca
+INNER JOIN unmerged_character AS uc
+    ON ca.fandom_url = uc.fandom_url
+WHERE ca.normalized_alias NOT IN (
+    SELECT normalized_alias
+    FROM "alias"
+);
 
 --
 -- episode cleaning
