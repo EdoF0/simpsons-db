@@ -138,7 +138,6 @@ CREATE TABLE episode (
     title varchar(128) NOT NULL,
     rating smallint,
     reviews_amount integer,
-    main_characters varchar(384),
     fandom_url varchar(256) UNIQUE,
     imdb_url varchar(256) UNIQUE,
     creation_time timestamp NOT NULL DEFAULT NOW()
