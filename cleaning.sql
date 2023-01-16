@@ -25,7 +25,7 @@ ORDER BY occ.known_as;
 
 -- raw data ready for merging
 -- can use the table as ranking because data_score is a proxy for popularity
-SELECT
+CREATE VIEW ready_raw_character AS SELECT
     known_as,
     fandom_url,
     LENGTH(concat(full_name, image_url, gender, status, alias, hair_color, birth_country, job, first_appearance, first_mentioned, voice)) AS data_score
@@ -33,15 +33,7 @@ FROM raw_character
 ORDER BY data_score DESC;
 
 -- future merged characters view
-WITH ready_raw_character AS (
-    SELECT
-        known_as,
-        fandom_url,
-        LENGTH(concat(full_name, image_url, gender, status, alias, hair_color, birth_country, job, first_appearance, first_mentioned, voice)) AS data_score
-    FROM raw_character
-    ORDER BY data_score DESC
-)
-SELECT
+CREATE VIEW unmerged_character AS SELECT
     (
         SELECT
             subc.known_as
