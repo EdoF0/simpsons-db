@@ -104,7 +104,7 @@ CREATE VIEW raw_episode AS SELECT
     im.creation_time AS imdb_creation_time,
     fd.creation_time AS fandom_creation_time
 FROM scraping_fandom_episode as fd
-LEFT JOIN scraping_imdb_episode as im ON fd.episode_number_absolute=im.episode_number_absolute;
+INNER JOIN scraping_imdb_episode as im ON fd.episode_number_absolute=im.episode_number_absolute;
 
 --
 -- Clean data
