@@ -65,11 +65,11 @@ ORDER BY "group" ASC, representative DESC;
 --
 -- episode cleaning
 --
--- TODO check all
 
 DELETE FROM scraping_fandom_episode WHERE airdate > NOW();
 DELETE FROM scraping_imdb_episode WHERE airdate > NOW();
 
+-- insert data final statement
 INSERT INTO episode (
     episode_number_absolute,
     episode_number_relative,
@@ -77,7 +77,6 @@ INSERT INTO episode (
     title,
     rating,
     reviews_amount,
-    main_characters,
     fandom_url,
     imdb_url
 )
@@ -85,10 +84,9 @@ SELECT
     episode_number_absolute,
     episode_number_relative,
     imdb_season,
-    imdb_title, -- TODO title check
+    fandom_title,
     rating,
     reviews_amount,
-    main_characters,
     fandom_url,
     imdb_url
-FROM raw_character;
+FROM raw_episode;
