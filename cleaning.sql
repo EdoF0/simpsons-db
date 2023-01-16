@@ -63,6 +63,24 @@ CREATE TABLE unmerged_character AS SELECT
 FROM ready_raw_character AS c
 ORDER BY "group" ASC, representative DESC;
 
+-- view not represented characters and correct group
+CREATE VIEW not_represented AS SELECT
+    nr.representatives_count,
+    nr.members_count,
+    nr."group" AS group_old,
+    uc."group" AS group_new
+FROM
+    (
+        SELECT
+            "group",
+            count(CASE WHEN representative THEN 1 END) AS representatives_count,
+            count(fandom_url) AS members_count
+        FROM unmerged_character
+        GROUP BY "group"
+        HAVING count(CASE WHEN representative THEN 1 END) = 0
+    ) AS nr
+    INNER JOIN unmerged_character AS uc ON nr."group" = uc.known_as;
+
 -- character insert data final statement
 INSERT INTO "character" (
     normalized_name,
