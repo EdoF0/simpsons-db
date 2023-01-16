@@ -192,3 +192,25 @@ SELECT
     fandom_url,
     imdb_url
 FROM raw_episode;
+
+-- main_character insert data final statement
+WITH episode_main_character AS (
+    SELECT
+        episode_number_absolute,
+        one_main_character AS main_character
+    FROM
+        raw_episode,
+        regexp_split_to_table(main_characters, ',') AS one_main_character
+)
+INSERT INTO main_character (
+    episode,
+    "alias"
+)
+SELECT
+    episode_number_absolute,
+    norm(main_character)
+FROM episode_main_character
+WHERE norm(main_character) IN (
+    SELECT normalized_alias
+    FROM "alias"
+);
